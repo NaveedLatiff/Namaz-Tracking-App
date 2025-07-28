@@ -1,0 +1,487 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.login-cont, .signup-cont {
+    border: 2px solid black;
+    height: 390px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inp {
+    height: 40px;
+    width: 250px;
+    border: 2px solid black;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inp img {
+    cursor: pointer;
+}
+
+.inp input {
+    height: 100%;
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    padding: 0px 10px;
+    background: transparent;
+}
+
+.inp .l-pass, .s-pass {
+    width: calc(100% - 30px);
+}
+
+.googleBtn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: 2px solid black;
+    background: transparent;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.googleBtn img {
+    height: 20px;
+    width: 20px;
+}
+
+.googleBtn:hover {
+    background-color: rgba(196, 184, 184, 0.2);
+}
+
+.btn {
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: black;
+    color: white;
+    border-radius: 12px;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background: transparent;
+    color: black;
+    border: 2px solid black;
+}
+
+.login-cont p, .signup-cont p {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/* Dashboard */
+.header-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.historyBtn {
+    background-color: #007bff;
+}
+
+.historyBtn:hover {
+    background: transparent;
+    color: #007bff;
+    border: 2px solid #007bff;
+}
+
+.dateCont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px;
+    font-size: 20px;
+}
+
+.allNamazCont {
+    height: 430px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 5px;
+}
+
+.allNamazCont .namaz {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 400px;
+    border: 2px solid black;
+    border-radius: 12px;
+    font-size: 25px;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.allNamazCont .namaz:hover:not(:disabled) {
+    background-color: black;
+    color: white;
+}
+
+.allNamazCont .namaz:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.namazAnswers {
+    height: 300px;
+    width: 400px;
+    border: 2px solid black;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.namazAnswers .ans {
+    display: flex;
+    height: 25%;
+    width: 90%;
+    padding-left: 20px;
+    align-items: center;
+    border-bottom: 2px solid black;
+    font-size: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.namazAnswers .jamaah {
+    border: none;
+}
+
+.namazAnswers .ans:hover {
+    background-color: green;
+    color: white;
+}
+
+.namazAnswers .img-cont {
+    align-self: flex-end;
+    padding: 10px 10px 0px 0px;
+    cursor: pointer;
+}
+
+.namazAnswers img {
+    height: 30px;
+    width: 30px;
+    background-color: red;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.namazAnswers img:hover {
+    background-color: transparent;
+    border: 2px solid black;
+}
+
+/* History Page Styles */
+.history-container {
+    width: 100%;
+    max-width: 800px;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.history-header h1 {
+    font-size: 28px;
+    color: #333;
+}
+
+.back-btn {
+    background-color: #6c757d;
+}
+
+.back-btn:hover {
+    background: transparent;
+    color: #6c757d;
+    border: 2px solid #6c757d;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    background-color: #e9ecef;
+    color: #495057;
+    border: 2px solid #e9ecef;
+}
+
+.filter-btn.active {
+    background-color: #007bff;
+    color: white;
+    border: 2px solid #007bff;
+}
+
+.filter-btn:hover {
+    background-color: #007bff;
+    color: white;
+    border: 2px solid #007bff;
+}
+
+.history-content {
+    width: 100%;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.history-day-card {
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    transition: all 0.3s;
+}
+
+.history-day-card:hover {
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0,123,255,0.1);
+}
+
+.history-date {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.history-date h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+}
+
+.history-date small {
+    color: #666;
+    font-size: 14px;
+}
+
+.history-prayers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.prayer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.prayer-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    min-width: 80px;
+}
+
+.prayer-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    min-width: 100px;
+}
+
+.prayer-status.on-time {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.prayer-status.with-jamaah {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.prayer-status.qaza {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.prayer-status.missed,
+.prayer-status.missed-day {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.prayer-status.not-tracked {
+    background-color: #ffc107;
+    color: #856404;
+}
+
+.edit-btn {
+    background-color: #007bff;
+}
+
+.edit-btn:hover {
+    background: transparent;
+    color: #007bff;
+    border: 2px solid #007bff;
+}
+
+.prayer-status.not-selected {
+    background-color: #e2e3e5;
+    color: #495057;
+}
+
+.select-btn {
+    padding: 5px 15px;
+    font-size: 14px;
+    margin: 0;
+    background-color: #28a745;
+}
+
+.select-btn:hover {
+    background: transparent;
+    color: #28a745;
+    border: 2px solid #28a745;
+}
+
+.error {
+    text-align: center;
+    color: #dc3545;
+    font-size: 16px;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .history-container {
+        padding: 10px;
+    }
+    
+    .history-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .history-header h1 {
+        font-size: 24px;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .filter-btn {
+        width: 150px;
+    }
+    
+    .prayer-row {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .allNamazCont {
+        width: 350px;
+    }
+    
+    .allNamazCont .namaz {
+        width: 320px;
+    }
+    
+    .namazAnswers {
+        width: 350px;
+    }
+    
+    .header-buttons {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-cont, .signup-cont {
+        width: 300px;
+        height: 350px;
+    }
+    
+    .inp {
+        width: 220px;
+    }
+    
+    .allNamazCont {
+        width: 300px;
+    }
+    
+    .allNamazCont .namaz {
+        width: 280px;
+        font-size: 20px;
+    }
+    
+    .namazAnswers {
+        width: 300px;
+    }
+    
+    .namazAnswers .ans {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assests/Namaz-app-logo.png" type="image/png">
+    <title>Prayer History</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="history-container">
+        <div class="history-header">
+            <button class="btn back-btn" onclick="location.href='dashboard.html'">← Back to Dashboard</button>
+            <h1>Prayer History</h1>
+            <button class="btn logOutBtn">LogOut</button>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="btn filter-btn active" data-days="7">Last 7 Days</button>
+            <button class="btn filter-btn" data-days="30">Last 30 Days</button>
+        </div>
+
+        <div class="history-content">
+            <div class="loading">Loading prayer history...</div>
+            <div class="history-list"></div>
+        </div>
+    </div>
+
+    <script type="module" src="history.js"></script>
+</body>
+</html>

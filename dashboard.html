@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assests/Namaz-app-logo.png" type="image/png">
+    <title>Track Your Prayer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header-buttons">
+        <button class="btn historyBtn" onclick="location.href='history.html'">Prayer History</button>
+        <button class="btn logOutBtn">LogOut</button>
+    </div>
+
+    <div class="dateCont">
+        <p>Today's Date</p>
+        <p class="eng-date"></p>
+    </div>
+
+    <div class="allNamazCont">
+        <button class="namaz fajr">
+            <p>Fajr</p>
+            <h6></h6>
+        </button>
+        <button class="namaz zuhr">
+            <p>Zuhr</p>
+            <h6></h6>
+        </button>
+        <button class="namaz asar">
+            <p>Asar</p>
+            <h6></h6>
+        </button>
+        <button class="namaz magrib">
+            <p>Magrib</p>
+            <h6></h6>
+        </button>
+        <button class="namaz isha">
+            <p>Isha</p>
+            <h6></h6>
+        </button>
+    </div>
+
+    <div class="namazAnswers">
+        <div class="img-cont" onclick="closeNamazAns()">
+            <img src="assests/close.svg">
+        </div>
+        <span class="ontime ans" onclick="selectOption(event)">On Time</span>
+        <span class="qaza ans" onclick="selectOption(event)">Qaza</span>
+        <span class="misses ans" onclick="selectOption(event)">Missed</span>
+        <span class="jamaah ans" onclick="selectOption(event)">With Jamaah</span>
+    </div>
+
+</body>
+<script type="module" src="dashboard.js"></script>
+
+</html>
