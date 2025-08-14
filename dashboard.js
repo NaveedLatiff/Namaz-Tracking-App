@@ -25,15 +25,21 @@ function closeNamazAns() {
     document.querySelector(".namazAnswers").style.display = "none";
 }
 
-// Save prayer data to Firebase
+function getTodayDateString() {
+    const now = new Date();
+    const pakistanTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Karachi"}));
+    const year = pakistanTime.getFullYear();
+    const month = String(pakistanTime.getMonth() + 1).padStart(2, '0');
+    const day = String(pakistanTime.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 async function saveUserPrayerData(prayerName, status, date) {
     const user = auth.currentUser;
     if (!user) return;
     
     try {
         const docRef = doc(db, "userPrayers", `${user.uid}_${date}`);
-        
-        // Get current document data
         const docSnap = await getDoc(docRef);
         let currentData = {};
         
@@ -41,7 +47,6 @@ async function saveUserPrayerData(prayerName, status, date) {
             currentData = docSnap.data();
         }
         
-        // Update the specific prayer
         const updateData = {
             userId: user.uid,
             date: date,
@@ -60,7 +65,6 @@ async function saveUserPrayerData(prayerName, status, date) {
     }
 }
 
-// Update UI after selection
 function updatePrayerUI(namazName, status) {
     document.querySelectorAll(".namaz").forEach((x) => {
         const namazNameElement = x.querySelector("p").innerText.trim();
@@ -81,27 +85,22 @@ function updatePrayerUI(namazName, status) {
 
 async function selectOption(e) {
     const status = e.currentTarget.innerText.trim();
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const today = getTodayDateString();
     
     try {
-        // Save to Firebase
         await saveUserPrayerData(selectedNamaz, status, today);
-        
-        // Update UI
         updatePrayerUI(selectedNamaz, status);
-        
     } catch (error) {
         console.error("Error saving prayer data:", error);
         alert("Failed to save prayer data. Please try again.");
     }
 }
 
-// Load today's prayer data
 async function loadTodayPrayerData() {
     const user = auth.currentUser;
     if (!user) return;
     
-    const today = new Date().toISOString().split('T')[0];
+    const today = getTodayDateString();
     
     try {
         const docRef = doc(db, "userPrayers", `${user.uid}_${today}`);
@@ -111,7 +110,6 @@ async function loadTodayPrayerData() {
             const data = docSnap.data();
             const prayers = data.prayers || {};
             
-            // Update UI based on saved data
             document.querySelectorAll(".namaz").forEach((namazBtn) => {
                 const namazName = namazBtn.querySelector('p').innerText.trim().toLowerCase();
                 const status = prayers[namazName];
@@ -132,19 +130,17 @@ async function loadTodayPrayerData() {
     }
 }
 
-// Make functions global
 window.closeNamazAns = closeNamazAns;
 window.selectOption = selectOption;
 
-// Date display
 let eng_date = document.querySelector(".eng-date");
-let today = new Date();
+let pakistanTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Karachi"});
+let today = new Date(pakistanTime);
 let todayDate = today.getDate();
-let todayMonth = today.getMonth() + 1; // Month is 0-indexed, so add 1
+let todayMonth = today.getMonth() + 1;
 let todayYear = today.getFullYear();
 eng_date.innerHTML = todayDate + "/" + todayMonth + "/" + todayYear;
 
-// SignOut
 let signout = () => {
     signOut(auth).then(() => {
         location.href = "./index.html";
@@ -159,7 +155,6 @@ onAuthStateChanged(auth, (user) => {
     if (!user) {
         location.href = "./index.html";
     } else {
-        // Load today's prayer data when user is authenticated
         loadTodayPrayerData();
     }
 });

@@ -17,12 +17,17 @@ let currentDaysFilter = 7;
 
 function getDateRange(days) {
     const dates = [];
-    const today = new Date();
+    const pakistanTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Karachi"});
+    const today = new Date(pakistanTime);
+    today.setHours(0, 0, 0, 0);
     
     for (let i = 0; i < days; i++) {
         const date = new Date(today);
         date.setDate(date.getDate() - i);
-        dates.push(date.toISOString().split('T')[0]);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        dates.push(`${year}-${month}-${day}`);
     }
     
     return dates.reverse();
@@ -52,7 +57,6 @@ async function loadPrayerHistory(days = 7) {
                     data: docSnap.data()
                 });
             } else {
-                // Add empty data for dates with no prayers
                 historyData.push({
                     date: date,
                     data: {
@@ -83,8 +87,7 @@ function displayHistory(historyData) {
     historyList.innerHTML = '';
 
     historyData.forEach(dayData => {
-        const dateObj = new Date(dayData.date);
-        const formattedDate = formatDate(dateObj);
+        const formattedDate = formatDate(dayData.date);
         const prayers = dayData.data.prayers || {};
 
         const dayCard = document.createElement('div');
@@ -109,14 +112,12 @@ function displayHistory(historyData) {
 }
 
 function createPrayerRow(prayerName, status, date) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const pakistanTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Karachi"});
+    const today = new Date(pakistanTime);
+    const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
     
-    const compareDate = new Date(date);
-    compareDate.setHours(0, 0, 0, 0);
-    
-    const isToday = compareDate.getTime() === today.getTime();
-    const isPast = compareDate.getTime() < today.getTime();
+    const isToday = date === todayStr;
+    const isPast = date < todayStr;
     
     let statusClass = 'not-selected';
     let statusText = 'Not Selected';
@@ -145,13 +146,17 @@ function createPrayerRow(prayerName, status, date) {
     `;
 }
 
-function formatDate(date) {
-    const today = new Date();
-    const yesterday = new Date();
+function formatDate(dateStr) {
+    const [year, month, day] = dateStr.split('-').map(num => parseInt(num));
+    const date = new Date(year, month - 1, day);
+    
+    const pakistanTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Karachi"});
+    const today = new Date(pakistanTime);
+    today.setHours(0, 0, 0, 0);
+    
+    const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
     
-    today.setHours(0, 0, 0, 0);
-    yesterday.setHours(0, 0, 0, 0);
     const compareDate = new Date(date);
     compareDate.setHours(0, 0, 0, 0);
 
@@ -171,7 +176,7 @@ function formatDate(date) {
 async function selectPrayerStatus(prayerName, date) {
     try {
         const { value: status } = await Swal.fire({
-            title: `Select ${prayerName} status for ${formatDate(new Date(date))}`,
+            title: `Select ${prayerName} status for ${formatDate(date)}`,
             input: 'select',
             inputOptions: {
                 'On Time': 'On Time',
@@ -188,7 +193,7 @@ async function selectPrayerStatus(prayerName, date) {
         if (status) {
             console.log(`Saving ${prayerName} as ${status} for ${date}`);
             await saveHistoryPrayerData(prayerName, status, date);
-            loadPrayerHistory(currentDaysFilter); // Reload history
+            loadPrayerHistory(currentDaysFilter);
         }
     } catch (error) {
         console.error("Error in selectPrayerStatus:", error);
@@ -266,7 +271,6 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
-// SignOut
 document.querySelector(".logOutBtn").addEventListener("click", () => {
     signOut(auth).then(() => {
         location.href = "./index.html";
@@ -275,7 +279,6 @@ document.querySelector(".logOutBtn").addEventListener("click", () => {
     });
 });
 
-// Auth state change
 onAuthStateChanged(auth, (user) => {
     if (!user) {
         location.href = "./index.html";
